@@ -1,0 +1,14 @@
+
+.AboutTopMostDiv{
+    background: linear-gradient(to bottom, white, lightyellow);
+    height: 100%;
+}
+.AboutusDiv{
+    background: linear-gradient(to bottom, white, lightyellow);
+}
+.MissionDiv{
+    background: linear-gradient(to bottom, lightyellow, white);
+}
+.ServicesDiv{
+    background: linear-gradient(to bottom, white, lightyellow);
+}

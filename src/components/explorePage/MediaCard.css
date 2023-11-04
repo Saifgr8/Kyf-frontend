@@ -1,0 +1,9 @@
+
+.threeDHover {
+    perspective: 800px;
+    transition: transform 0.3s;
+  }
+  
+  .threeDHover:hover {
+    transform: rotateY(10deg) rotateX(-10deg);
+  }

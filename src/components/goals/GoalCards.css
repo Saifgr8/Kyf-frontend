@@ -1,0 +1,21 @@
+#GoalCard {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.GoalText {
+  white-space: normal;
+}
+.shareBtn {
+  display: flex;
+  justify-content: center;
+}
+.BackImg {
+  filter: brightness(70%);
+}
+
+#SetGoalPage {
+  background: linear-gradient(to bottom, white, lightyellow);
+  height: 140vh;
+} 
