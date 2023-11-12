@@ -39,3 +39,10 @@ export const getUser = (userId) => {
     const url = `${BASE_URL}/users/${userId}`;
     return axios.get(url);
 }
+
+// Recipe Services methods
+
+export const getOwnerRecipes = (userId) => {
+    const url = `${BASE_URL}/recipe/owner/${userId}`;
+    return axios.get(url);
+}

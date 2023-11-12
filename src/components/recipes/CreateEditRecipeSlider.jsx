@@ -17,9 +17,11 @@ import { getCurrentUser, getUserGoal } from "../../utils/CurrentUserDetails";
 import axios from "axios";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useNavigate } from "react-router-dom";
 import { getUser } from "../../api-services/UrlService";
 
 function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
+  const navigate = useNavigate();
   const [foodItemsModalOpen, setFoodItemsModalOpen] = useState(false);
   const [slideIn, setSlideIn] = useState(false);
   const isEdit = initialRecipe ? true : false;
@@ -81,6 +83,11 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
   useEffect(() => {
     setSlideIn(true);
     getUser(getCurrentUser().id).then((res) => {
+      if (!res.data.userGoal) {
+        alert("Please set your user goal");
+        navigate("/app/onboard", { replace: true });
+      }
+
       setUser(res.data);
     });
   }, []);
@@ -185,12 +192,29 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
     return Math.round((num / dem) * 100);
   };
 
+  const [alertShown, setAlertShown] = useState(false);
+
+  const checkForExceedingValue = () => {
+    for (const key in recipe.macros) {
+      const percentage = calculatePercentage(recipe.macros[key], user?.userGoal[key]);
+      if (percentage > 100) {
+        setAlertShown(true);
+        window.alert(`Value exceeded at ${key}: ${percentage}%`);
+      }
+    }
+  };
+
+  if (!alertShown) {
+    checkForExceedingValue();
+  }
+
   return (
     <Box
       sx={{
         position: "fixed",
         width: "25%",
-        backgroundColor: "#f8f8f8",
+        background: "linear-gradient(to bottom, white, lightyellow)",
+        height: "100vh",
         height: "95vh",
         top: 70,
         right: slideIn ? 0 : "-25%",
@@ -319,6 +343,8 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
                   gap: "10px",
                 }}
               >
+                {/* see here */}
+
                 <Chip
                   label={`${key}: ${recipe.macros[key]} / ${user?.userGoal[key]}`}
                   style={{ ...macroStyles[key] }}
@@ -381,7 +407,6 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "center",
-          maxHeight: "30vh",
           gap: "10px",
         }}
       >
@@ -406,10 +431,8 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
         )}
       </Box>
       <Button
+        sx={{ marginBottom: "10px", bottom: "10px" }}
         variant="contained"
-        sx={{
-          marginTop: "100px",
-        }}
         disabled={
           recipe.ingredients.length === 0 || !recipe.name || !recipe.description
         }

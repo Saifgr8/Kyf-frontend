@@ -1,0 +1,21 @@
+.TopDiv {
+  background: linear-gradient(to bottom, lightyellow, white);
+  height: 100vh;
+}
+.Typo {
+    position: absolute;
+    text-align: center;
+    color: white;
+    z-index: 1000;
+    padding-left: 300px;
+    padding-top: 50px;
+}
+.ButtonDivs1{
+    position: absolute;
+    top: 80%;
+    left: 5%;
+    z-index: 1000;
+    padding-right: 200px;
+    color: white;
+}
+  

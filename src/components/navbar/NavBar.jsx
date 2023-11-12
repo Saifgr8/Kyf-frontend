@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
+import DashInfo from "../dashboard/DashInfo";
 import {
   getCurrentUser,
   removeCurrentUser,
@@ -75,6 +76,32 @@ function NavBar() {
     handleCloseNavMenu();
   };
 
+  const profileCard = () => {
+    return (
+      <div>
+        <DashInfo />
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <Button
+            variant="outlined"
+            sx={{ marginTop: "5px" }}
+            onClick={() => handleCloseUserMenu()}
+          >
+            Close
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{ marginTop: "5px" }}
+            onClick={() => {
+              removeCurrentUser();
+              navigate("/login");
+            }}
+          >
+            Logout
+          </Button>
+        </div>
+      </div>
+    );
+  };
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "inherit" }}>
       <Container maxWidth="xl">
@@ -207,6 +234,8 @@ function NavBar() {
             )}
           </Box>
 
+          {/* //do here */}
+
           {currentUser?.isLoggedIn ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title={currentUser?.username}>
@@ -215,7 +244,7 @@ function NavBar() {
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{ mt: "45px", padding: "0px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -230,15 +259,7 @@ function NavBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={() => {}}>Profile</MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    removeCurrentUser();
-                    navigate("/login");
-                  }}
-                >
-                  Log out
-                </MenuItem>
+                {profileCard()}
               </Menu>
             </Box>
           ) : (

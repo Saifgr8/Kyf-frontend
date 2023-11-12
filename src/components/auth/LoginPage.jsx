@@ -29,18 +29,14 @@ const LoginPage = () => {
     username: "",
     email: "",
     password: "",
-    age: "",
-    height: "",
-    weight: "",
+    confirmpassword: "",
   });
 
   const [signUpErrors, setSignUpErrors] = React.useState({
     username: "",
     email: "",
     password: "",
-    age: "",
-    height: "",
-    weight: "",
+    confirmpassword: "",
   });
 
   const [signInData, setSignInData] = React.useState({
@@ -54,6 +50,7 @@ const LoginPage = () => {
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
   const [apiError, setApiError] = React.useState("");
 
@@ -62,17 +59,11 @@ const LoginPage = () => {
       username: "",
       email: "",
       password: "",
-      age: "",
-      height: "",
-      weight: "",
     });
     setSignUpErrors({
       username: "",
       email: "",
       password: "",
-      age: "",
-      height: "",
-      weight: "",
     });
     setSignInData({
       usernameOrEmail: "",
@@ -173,36 +164,46 @@ const LoginPage = () => {
         errors.password = "";
       }
     }
-
-    if (name === "age") {
-      if (!value) {
-        errors.age = "Age is required";
-      } else if (value < 0 || value > 150) {
-        errors.age = "Invalid age";
-      } else {
-        errors.age = "";
-      }
+    
+    const confirmPasswordValue = signUpData.password;
+    console.log("confirmPasswordValue");
+    console.log(confirmPasswordValue);
+    if(confirmPasswordValue !== value){
+      errors.confirmpassword = "Passwords do not match";
+    }
+    else {
+      errors.confirmpassword = "";
     }
 
-    if (name === "height") {
-      if (!value) {
-        errors.height = "Height is required";
-      } else if (value < 0 || value > 1000) {
-        errors.height = "Invalid height";
-      } else {
-        errors.height = "";
-      }
-    }
+    // if (name === "age") {
+    //   if (!value) {
+    //     errors.age = "Age is required";
+    //   } else if (value < 0 || value > 150) {
+    //     errors.age = "Invalid age";
+    //   } else {
+    //     errors.age = "";
+    //   }
+    // }
 
-    if (name === "weight") {
-      if (!value) {
-        errors.weight = "Weight is required";
-      } else if (value < 0 || value > 1000) {
-        errors.weight = "Invalid weight";
-      } else {
-        errors.weight = "";
-      }
-    }
+    // if (name === "height") {
+    //   if (!value) {
+    //     errors.height = "Height is required";
+    //   } else if (value < 0 || value > 1000) {
+    //     errors.height = "Invalid height";
+    //   } else {
+    //     errors.height = "";
+    //   }
+    // }
+
+    // if (name === "weight") {
+    //   if (!value) {
+    //     errors.weight = "Weight is required";
+    //   } else if (value < 0 || value > 1000) {
+    //     errors.weight = "Invalid weight";
+    //   } else {
+    //     errors.weight = "";
+    //   }
+    // }
 
     setSignUpErrors(errors);
   };
@@ -211,14 +212,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     const errors = { ...signUpErrors };
-    if (
-      !signUpData.username ||
-      !signUpData.email ||
-      !signUpData.password ||
-      !signUpData.age ||
-      !signUpData.height ||
-      !signUpData.weight
-    ) {
+    if (!signUpData.username || !signUpData.email || !signUpData.password) {
       if (!signUpData.username) {
         errors.username = "Username is required";
       }
@@ -227,15 +221,6 @@ const LoginPage = () => {
       }
       if (!signUpData.password) {
         errors.password = "Password is required";
-      }
-      if (!signUpData.age) {
-        errors.age = "Age is required";
-      }
-      if (!signUpData.height) {
-        errors.height = "Height is required";
-      }
-      if (!signUpData.weight) {
-        errors.weight = "Weight is required";
       }
     }
 
@@ -344,7 +329,10 @@ const LoginPage = () => {
         <Lottie animationData={tomato} />
         <Container component="main">
           <CssBaseline />
-          <Paper elevation={3} sx={{ borderRadius: 4, width: "fit-content", marginLeft: '90px' }}>
+          <Paper
+            elevation={3}
+            sx={{ borderRadius: 4, width: "fit-content", marginLeft: "90px" }}
+          >
             <div className="container" id="container">
               <div className="form-container sign-up-container">
                 <form onSubmit={handleSignUpSubmit}>
@@ -437,6 +425,30 @@ const LoginPage = () => {
                       ),
                     }}
                   />
+                  <TextField
+                    type={showConfirmPassword ? "text" : "password"}
+                    label="Confirm Password"
+                    fullWidth
+                    variant="outlined"
+                    value={signUpData.confirmpassword}
+                    onChange={(e) =>
+                      handleSignUpChange("confirmpassword", e.target.value)
+                    }
+                    error={!!signUpErrors.confirmpassword}
+                    helperText={signUpErrors.confirmpassword}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            edge="end"
+                          >
+                            {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
 
                   <Box
                     sx={{
@@ -445,47 +457,7 @@ const LoginPage = () => {
                       alignItems: "center",
                       gap: "15px",
                     }}
-                  >
-                    <TextField
-                      type="number"
-                      label="Age"
-                      placeholder="years"
-                      variant="outlined"
-                      size="small"
-                      value={signUpData.age}
-                      onChange={(e) =>
-                        handleSignUpChange("age", e.target.value)
-                      }
-                      error={!!signUpErrors.age}
-                      helperText={signUpErrors.age}
-                    />
-                    <TextField
-                      type="number"
-                      label="Height"
-                      placeholder="cm"
-                      variant="outlined"
-                      size="small"
-                      value={signUpData.height}
-                      onChange={(e) =>
-                        handleSignUpChange("height", e.target.value)
-                      }
-                      error={!!signUpErrors.height}
-                      helperText={signUpErrors.height}
-                    />
-                    <TextField
-                      type="number"
-                      label="Weight"
-                      placeholder="kg"
-                      variant="outlined"
-                      size="small"
-                      value={signUpData.weight}
-                      onChange={(e) =>
-                        handleSignUpChange("weight", e.target.value)
-                      }
-                      error={!!signUpErrors.weight}
-                      helperText={signUpErrors.weight}
-                    />
-                  </Box>
+                  ></Box>
                   {apiError && (
                     <Typography
                       variant="subtitle1"

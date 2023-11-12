@@ -32,14 +32,7 @@ function App() {
               </ProtectedRoutes>
             }
           /> */}
-          <Route
-            path="explore"
-            element={
-              <ProtectedRoutes isUserLoggedIn={isUserLoggedIn}>
-                <ExploreFoodItems />
-              </ProtectedRoutes>
-            }
-          />
+          <Route path="explore" element={<ExploreFoodItems />} />
           <Route
             path="dashboard"
             element={

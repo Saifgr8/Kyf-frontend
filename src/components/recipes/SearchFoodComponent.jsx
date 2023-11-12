@@ -18,7 +18,7 @@ import FoodCards from "../explorePage/FoodCards";
 import FoodTypeSelection from "../explorePage/FoodTypeSelection";
 import { macroStyles } from "./RecipeCard";
 
-function SearchFoodComponent({ onSelectFoodItem }) {
+function SearchFoodComponent({ onSelectFoodItem, exploreButtonOff }) {
   const [data, setData] = useState([]);
   const [type, setType] = useState("Non-Veg");
   const [filteredData, setFilteredData] = useState([]);
@@ -100,12 +100,14 @@ function SearchFoodComponent({ onSelectFoodItem }) {
         name: food.name,
         amount: grams,
         macros: macros,
+        type: food.type,
     };
 
     onSelectFoodItem(newFood);
     setTimeout(() => {}, 1000);
     setDrawerOpen(false);
   };
+  
 
   const CustomBottomDrawer = (selectedFood) => {
     return (
@@ -198,7 +200,10 @@ function SearchFoodComponent({ onSelectFoodItem }) {
               sx={{ marginTop: "-2rem" }}
               value={grams}
             />
-            <Button
+
+            {/* do here */}
+
+            {!exploreButtonOff && <Button
               variant="contained"
               size="large"
               onClick={() => addFoodItemClick(selectedFood)}
@@ -206,7 +211,7 @@ function SearchFoodComponent({ onSelectFoodItem }) {
               sx={{ marginTop: "1.2rem" }}
             >
               Add
-            </Button>
+            </Button>}
           </Box>
           <Box
             sx={{

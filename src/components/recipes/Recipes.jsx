@@ -1,4 +1,4 @@
-import { Box, Button, Snackbar, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import Lottie from "lottie-react";
@@ -7,7 +7,8 @@ import RMgif from "../../Videos/RMgif.json";
 import RecipeDetailSliderView from "./RecipeDetailSliderView";
 import CreateEditRecipeSlider from "./CreateEditRecipeSlider";
 import { useEffect } from "react";
-import axios from "axios";
+import { getCurrentUser } from "../../utils/CurrentUserDetails";
+import { getOwnerRecipes } from "../../api-services/UrlService";
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -18,8 +19,10 @@ function Recipes() {
 
   useEffect(() => {
     const fetchOwnerRecipes = async () => {
-      const response = await axios.get("http://localhost:8080/api/recipe");
-      setRecipes(response.data);
+      const owner = getCurrentUser();
+      getOwnerRecipes(owner.id).then((response) => {
+        setRecipes(response.data);
+      });
     };
     fetchOwnerRecipes();
   }, [reFetch]);
@@ -39,7 +42,12 @@ function Recipes() {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        background: "linear-gradient(to bottom, white, lightyellow)",
+        height: "100vh",
+      }}
+    >
       {recipes.length === 0 ? (
         <ZeroRecipes />
       ) : (
@@ -70,7 +78,10 @@ function Recipes() {
           {showRecipeDetail && selectedRecipe && (
             <RecipeDetailSliderView
               recipe={selectedRecipe}
-              onClose={() => {setSelectedRecipe(null); setShowRecipeDetail(false);}}
+              onClose={() => {
+                setSelectedRecipe(null);
+                setShowRecipeDetail(false);
+              }}
               reFetch={() => setReFetch(!reFetch)}
               onEditClick={() => {
                 setSelectedRecipe(selectedRecipe);
@@ -85,7 +96,7 @@ function Recipes() {
         sx={{
           position: "fixed",
           width: "25%",
-          backgroundColor: "#f8f8f8",
+          background: "linear-gradient(to bottom, white, lightyellow)",
           height: "100vh",
           right: 0,
           top: 70,
@@ -126,7 +137,10 @@ function Recipes() {
         {showCreateRecipe && (
           <CreateEditRecipeSlider
             reFetch={() => setReFetch(!reFetch)}
-            onClose={() => {setShowCreateRecipe(false); setSelectedRecipe(null); }}
+            onClose={() => {
+              setShowCreateRecipe(false);
+              setSelectedRecipe(null);
+            }}
             initialRecipe={selectedRecipe}
           />
         )}

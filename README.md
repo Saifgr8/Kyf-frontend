@@ -37,6 +37,8 @@ Contact page..
 Dashboard page..
 recipe card page
 About page parallax image
+Contact page
+profile card
 
 
 

@@ -31,6 +31,33 @@ import {
 } from "../../utils/CurrentUserDetails";
 import steps from "../../Videos/steps.json";
 
+export const convertFeetToCentimeter = (inputValue) => {
+  const [feet, inches] = inputValue.split("."); // Assuming input format is "X.Y" (feet and inches)
+  const feetValue = parseFloat(feet);
+  const inchesValue = parseFloat(inches);
+
+  if (!isNaN(feetValue) && !isNaN(inchesValue)) {
+    const totalInches = feetValue * 12 + inchesValue;
+    return (totalInches * 2.54).toFixed(2);
+  } else {
+    return "";
+  }
+};
+
+export const convertCentimeterToFeet = (centimeterValue) => {
+  const parsedCentimeters = parseFloat(centimeterValue);
+  if (!isNaN(parsedCentimeters)) {
+    const feet = parsedCentimeters / 30.48;
+    const feetInt = Math.floor(feet);
+    const inches = (feet - feetInt) * 12;
+    return `${feetInt}' ${inches.toFixed(0)}`;
+  } else {
+    return "";
+  }
+};
+
+console.log(convertCentimeterToFeet(180));
+
 const QuestionsCard = () => {
   const navigate = useNavigate();
 
@@ -44,15 +71,6 @@ const QuestionsCard = () => {
     activeLevel: "",
   });
   const [feet, setFeet] = useState("");
-
-  const convertFeetToCentimeter = (feetValue) => {
-    const parsedFeet = parseFloat(feetValue);
-    if (!isNaN(parsedFeet)) {
-      return (parsedFeet * 30.48).toFixed(2);
-    } else {
-      return "";
-    }
-  };
 
   const handleFeetChange = (e) => {
     const newFeet = e.target.value;
@@ -68,6 +86,7 @@ const QuestionsCard = () => {
   });
 
   const currentUser = getCurrentUser();
+  
   const handleDataChange = (key, value) => {
     setData({
       ...data,

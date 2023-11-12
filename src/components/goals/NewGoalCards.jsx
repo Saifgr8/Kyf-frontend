@@ -26,7 +26,7 @@ function NewGoalCards({
       console.log(res);
     });
   };
-
+  console.log(goalValues);
   return (
     <div className="card">
       <div className="bg" onClick={() => setActive(true)} style={divStyle}>
@@ -38,12 +38,20 @@ function NewGoalCards({
             <Typography variant="body1">{info}</Typography>
           </>
         ) : (
-          <Box sx={{ marginTop: "5px", display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
+          <Box
+            sx={{
+              marginTop: "5px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              alignItems: "center",
+            }}
+          >
             <Typography variant="h3" component="div">
               {type}
             </Typography>
             <Typography
-              sx={{ fontWeight: "bold",}}
+              sx={{ fontWeight: "bold" }}
               variant="h6"
               color="text.secondary"
             >
@@ -76,6 +84,13 @@ function NewGoalCards({
               color="text.secondary"
             >
               Sugars: {goalValues.sugars}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: "bold" }}
+              variant="h6"
+              color="text.secondary"
+            >
+              Fibers: {goalValues.fiber}
             </Typography>
             <Box display={"flex"} justifyContent={"center"}>
               <Button

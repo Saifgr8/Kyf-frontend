@@ -31,13 +31,12 @@ const FoodItemCard = ({ foodItem, onDeleteFoodItem, onUpdateAmount }) => {
           size="small"
           variant="standard"
           value={foodItem?.amount}
-          onChange={
-            (e) =>
-              onUpdateAmount(
-                foodItem?.name,
-                Number(foodItem?.amount),
-                Number(e.target.value)
-              )
+          onChange={(e) =>
+            onUpdateAmount(
+              foodItem?.name,
+              Number(foodItem?.amount),
+              Number(e.target.value)
+            )
           }
           sx={{
             marginRight: "10px",
@@ -68,6 +67,7 @@ const FoodItemCard = ({ foodItem, onDeleteFoodItem, onUpdateAmount }) => {
         padding: "10px",
         marginBottom: "10px",
         width: "100%",
+        background: "linear-gradient(to bottom, white, lightyellow)",
       }}
     >
       <Box

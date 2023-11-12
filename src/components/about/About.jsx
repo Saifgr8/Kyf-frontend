@@ -8,6 +8,7 @@ import ourServices from "../../Videos/AboutServices.json";
 import { Box, Typography } from "@mui/material";
 import Footer from "../footer/Footer";
 import "./About.css";
+import image from '../../images/ExploreFullimgExploreVeg.jpeg';
 
 function About() {
   const ref = useRef(null);
@@ -15,7 +16,7 @@ function About() {
   return (
     <>
       <div>
-        <Parallax pages={3} ref={ref}>
+        <Parallax pages={4} ref={ref}>
           <ParallaxLayer offset={0} speed={0.5} factor={1} className="AboutusDiv" onClick={() => ref.current.scrollTo(1)}>
             <Box sx= {{
               display: 'flex',
@@ -76,7 +77,7 @@ function About() {
             </Box>
           </ParallaxLayer>
           <ParallaxLayer
-            offset={1.1}
+            offset={1.3}
             speed={0.5}
             factor={1}
             className="ServicesDiv"
@@ -103,10 +104,14 @@ function About() {
               </div>
             </Box>
           </ParallaxLayer>
-          <ParallaxLayer sticky={{ start: 2, end: 5 }} speed={0.05} onClick={() => ref.current.scrollTo(5)}>
+          <ParallaxLayer offset={2} factor={3} speed={0.5} 
+          style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}>
+          </ParallaxLayer>
+
+          <ParallaxLayer sticky={{ start: 2, end: 5 }}  onClick={() => ref.current.scrollTo(5)}>
             <Lottie animationData={FruitFall} style={{ height: "400px" }} />
           </ParallaxLayer>
-           <ParallaxLayer sticky={{start: 5, end: 5}} style={{height: "40%"}}>
+           <ParallaxLayer sticky={{start: 4, end: 5}} style={{height: "40%"}}>
             <Footer />
           </ParallaxLayer>
         </Parallax>

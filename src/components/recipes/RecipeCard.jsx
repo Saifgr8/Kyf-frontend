@@ -15,10 +15,9 @@ import {
   IconButton,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
 
 export const macroStyles = {
-  calorie: { backgroundColor: "#ffcc80", color: "#e65100" },
+  calories: { backgroundColor: "#ffcc80", color: "#e65100" },
   sugars: { backgroundColor: "#b2dfdb", color: "#00796b" },
   fat: { backgroundColor: "#b39ddb", color: "#4a148c" },
   protein: { backgroundColor: "#81d4fa", color: "#01579b" },
@@ -46,7 +45,7 @@ export const convertToDateText = (date) => {
   const monthIndex = date[1] - 1;
   const year = date[0];
 
-  return `${day} ${months[monthIndex]} ${year}`;
+  return `${day}th ${months[monthIndex]} ${year}`;
 };
 const RecipeCard = ({
   recipe,
@@ -54,11 +53,17 @@ const RecipeCard = ({
   handleEditIconClick,
   reFetch,
   selected,
+  small,
+  readOnly,
+  handleCardClick,
 }) => {
   const handleSeeDetailsClick = () => {
     handleRecipeCardClick(recipe);
   };
 
+  const handleCardClick1 = () => {
+    if(handleCardClick) handleCardClick(recipe);
+  };
   const handleEditClick = () => {
     handleEditIconClick(recipe);
   };
@@ -77,8 +82,13 @@ const RecipeCard = ({
   };
 
   const getRecipeTypeLogo = () => {
-    const isVeg = recipe.isVeg || true;
-
+    var isNonVeg = false;
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.type === "Non-Veg") {
+        isNonVeg = true;
+        return;
+      }
+    });
     return (
       <Box
         sx={{
@@ -88,14 +98,14 @@ const RecipeCard = ({
           margin: "12px 8px 0px 10px",
           height: "18px",
           width: "18px",
-          border: {isVeg} ? "2px solid green" : "2px solid red",
+          border: isNonVeg ? "2px solid red" : "2px solid green"
         }}
       >
         <Box
           sx={{
             height: "8px",
             width: "8px",
-            bgcolor: {isVeg} ? "green" : "red",
+            bgcolor: isNonVeg ? "red" : "green",
             borderRadius: "50%",
           }}
         />
@@ -117,12 +127,12 @@ const RecipeCard = ({
               }}
               aria-label="recipe"
             >
-              {recipe.name[0]}
+              {recipe?.name && recipe.name.charAt(0).toUpperCase()}
             </Avatar>
           }
           action={getRecipeTypeLogo()}
           title={recipe.name || "My Recipe"}
-          subheader="September 14, 2016"
+          subheader={convertToDateText(recipe.updatedAt)}
           titleTypographyProps={{ variant: "h6", fontWeight: "bold" }}
           sx={{ borderBottom: "1px solid #e0e0e0" }}
         />
@@ -216,26 +226,28 @@ const RecipeCard = ({
         <CardActions
           sx={{ display: "flex", justifyContent: "flex-end", padding: 0 }}
         >
-          <Button
+          {!readOnly && (<Button
             size="small"
             onClick={handleSeeDetailsClick}
             sx={{ margin: "0px auto 0px 12px" }}
           >
             See Details
-          </Button>
-          <IconButton onClick={handleEditClick} sx={{ color: "#e65100" }}>
+          </Button>)}
+          {!readOnly && (<IconButton onClick={handleEditClick} sx={{ color: "#e65100" }}>
             <EditIcon />
-          </IconButton>
-          <IconButton onClick={handleDeleteClick} sx={{ color: "#c62828" }}>
+          </IconButton>)}
+          {!readOnly && (<IconButton onClick={handleDeleteClick} sx={{ color: "#c62828" }}>
             <DeleteIcon />
-          </IconButton>
+          </IconButton>)}
         </CardActions>
       </Box>
     );
   };
 
   return (
-    <Card className="recipe-card1" elevation={5}>
+    <Card className={selected ?  "recipe-card1-selected" : "recipe-card1"} elevation={5}
+    onClick={handleCardClick1}
+    >
       <div className="card-inner1">
         {cardFrontView()}
         {cardBackView()}

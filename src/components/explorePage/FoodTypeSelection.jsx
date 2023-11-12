@@ -11,6 +11,7 @@ function FoodTypeSelection({ type, setType, selectOptions, onSelectOption }) {
         marginBottom: 4,
         justifyContent: "center",
         gap: 2,
+        width: '30%'
       }}
     >
       <Button
