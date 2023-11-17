@@ -28,6 +28,7 @@ function ContactModal({ open, handleClose }) {
           style={{ position: "absolute", marginTop: "200px" }}
         />
         <Lottie
+        className="ghost"
           animationData={ghost}
           style={{ position: "absolute", marginTop: "500px", height: "300px", marginLeft: '250px' }}
         />

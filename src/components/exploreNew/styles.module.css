@@ -10,15 +10,15 @@
   font-family: "Kanit", sans-serif;
   line-height: 0px;
   text-transform: uppercase;
+  
 }
 
 .number {
   font-size: 80px;
-  color: #cfd2db;
-}
+  color: black;}
 .number2 {
   font-size: 20px;
-  color: #cfd2db;
+  color: black;
   margin-top: 80px;
 }
 .number3 {

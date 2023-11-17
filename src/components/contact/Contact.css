@@ -18,4 +18,15 @@
     padding-right: 200px;
     color: white;
 }
-  
+.ghost{
+  animation: slide 4s infinite;
+
+}
+@keyframes slide {
+  0%,100%{
+    transform: translateX(0);
+  }
+  50%{
+    transform: translateX(-300px);
+  }
+}

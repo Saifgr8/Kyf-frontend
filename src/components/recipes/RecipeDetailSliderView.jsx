@@ -137,54 +137,57 @@ function RecipeDetailSliderView({ recipe, onClose, reFetch, onEditClick }) {
           </Box>
         </Collapse>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography
-          variant="h4"
-          sx={{
-            margin: "10px 0px",
-          }}
-        >
-          Ingredients
-        </Typography>
-        <IconButton
-          size="medium"
-          onClick={() => setIngredientsOpen(!ingredientsOpen)}
-        >
-          {ingredientsOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-        </IconButton>
-      </Box>
-      <Collapse in={ingredientsOpen} timeout="auto" unmountOnExit>
+      <Box sx={{overflow: 'auto'}}>
         <Box
           sx={{
-           display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          maxHeight: "30vh",
-          gap: "10px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          {recipe.ingredients.map((ingredient, index) => (
-            <FoodItemCard key={index} foodItem={ingredient} />
-          ))}
+          <Typography
+            variant="h4"
+            sx={{
+              margin: "10px 0px",
+            }}
+          >
+            Ingredients
+          </Typography>
+          <IconButton
+            size="medium"
+            onClick={() => setIngredientsOpen(!ingredientsOpen)}
+          >
+            {ingredientsOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </IconButton>
         </Box>
-      </Collapse>
-      <Button
-        variant="contained"
-        sx={{
-          marginTop: "10px",
-        }}
-        onClick={onEditClick}
-      >
-        Edit
-      </Button>
+        <Collapse in={ingredientsOpen} timeout="auto" unmountOnExit>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              maxHeight: "20vh",
+              gap: "10px",
+              overflow: "auto",
+            }}
+          >
+            {recipe.ingredients.map((ingredient, index) => (
+              <FoodItemCard key={index} foodItem={ingredient} />
+            ))}
+          </Box>
+        </Collapse>
+        <Button
+          variant="contained"
+          sx={{
+            marginTop: "10px",
+          }}
+          onClick={onEditClick}
+        >
+          Edit
+        </Button>
+      </Box>
     </Box>
   );
 }
