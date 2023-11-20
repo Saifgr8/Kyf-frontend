@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "https://kyf-backend.azurewebsites.net/api";
 
 // signup and signin methods
 export const signup =  (data) => {
