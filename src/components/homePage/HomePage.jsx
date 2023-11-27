@@ -80,7 +80,7 @@ export function HomePageContents() {
                   Know Your Food
                 </Typography>
                 <Typography sx={{ textAlign: "center" }} varient="body1">
-                  Because knwoing your food is better than knowing most people.
+                  Because knowing your food is better than knowing most people.
                 </Typography>
               </Animator>
               <Animator
