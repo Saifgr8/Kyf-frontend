@@ -239,8 +239,8 @@ function NavBar() {
           {currentUser?.isLoggedIn ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title={currentUser?.username}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Saif" src="/static/images/avatar/2.jpg" />
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}} >
+                  <Avatar sx={{color: 'red', backgroundColor: 'lightgreen'}} alt={currentUser?.username} src="/static/images/avatar/2.jpg"  />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -51,6 +51,8 @@ function Inputforms() {
     setDataError({ ...dataError, [key]: "" });
   };
 
+  console.log(handleDataChange);
+
   const handleNextStep = () => {
     if (step < maxStep) {
       if (step === 1 && !data.SignInPageRating) {
@@ -465,8 +467,6 @@ function Inputforms() {
     }
   };
 
-  console.log(data);
-
   return (
     <Box
       sx={{
@@ -668,10 +668,12 @@ function Inputforms() {
                 readOnly
               />
             </div>
+            <Button sx={{mt: '5px'}} variant='contained' onClick={() => window.alert("Response Submitted, Thank you.")}>Submit</Button>
             {/* Add similar blocks for other pages */}
           </Box>
         </Card>
       )}
+      
     </Box>
   );
 }

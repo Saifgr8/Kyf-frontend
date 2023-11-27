@@ -18,6 +18,13 @@
     padding-right: 200px;
     color: white;
 }
+.ButtonDivs2{
+  position: absolute;
+  top: 80%;
+  left: 80%;
+  z-index: 1000;
+  color: white;
+}
 .ghost{
   animation: slide 4s infinite;
 
