@@ -120,7 +120,7 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
   const handleSave = () => {
     if (isEdit) {
       axios
-        .put(`http://localhost:8080/api/recipe/${recipe.id}`, recipe)
+        .put(`https://kyf-backend.azurewebsites.net/api/recipe/${recipe.id}`, recipe)
         .then((res) => {
           reFetch();
           alert("Recipe updated successfully");
@@ -132,7 +132,7 @@ function CreateEditRecipeSlider({ onClose, reFetch, initialRecipe }) {
         owner: user.id,
       };
 
-      axios.post("http://localhost:8080/api/recipe", newRecipe).then((res) => {
+      axios.post("https://kyf-backend.azurewebsites.net/api/recipe", newRecipe).then((res) => {
         reFetch();
         alert("Recipe created successfully");
       });

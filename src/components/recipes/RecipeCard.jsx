@@ -70,7 +70,7 @@ const RecipeCard = ({
 
   const handleDeleteClick = () => {
     axios
-      .delete(`http://localhost:8080/api/recipe/${recipe.id}`)
+      .delete(`https://kyf-backend.azurewebsites.net/api/recipe/${recipe.id}`)
       .then((res) => {
         alert("Recipe deleted successfully");
         reFetch();
