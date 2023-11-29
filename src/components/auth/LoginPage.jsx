@@ -322,12 +322,12 @@ const LoginPage = () => {
           top: 0,
           left: 0,
           width: "100%",
-          height: "300vh",
+          height: "200vh",
           backgroundImage: `url(${BGimg})`,
         }}
       >
-        <Lottie animationData={tomato} />
-        <Container component="main">
+         <Lottie animationData={tomato} style={{position: 'absolute',  height: '300px', left: '40%', zIndex: '1000', top: '5%'}} />
+        <Container component="main" sx={{marginTop: '100px'}}>
           <CssBaseline />
           <Paper
             elevation={3}
