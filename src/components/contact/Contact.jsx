@@ -45,7 +45,7 @@ function Contact() {
             Click me
           </Button>
           <Typography variant="h4" sx={{ paddingLeft: "10px" }}>
-            to Complain
+            to Contact
           </Typography>
         </div>
         <ContactModal open={isModalOneOpen} handleClose={() => setModalOneOpen(false)} />

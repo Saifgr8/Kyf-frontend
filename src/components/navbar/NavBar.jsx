@@ -240,7 +240,7 @@ function NavBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title={currentUser?.username}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}} >
-                  <Avatar sx={{color: 'red', backgroundColor: 'lightgreen'}} alt={currentUser?.username} src="/static/images/avatar/2.jpg"  />
+                  <Avatar sx={{color: 'red', backgroundColor: 'lightgreen'}} alt={currentUser?.username.toUpperCase()} src="/static/images/avatar/2.jpg"  />
                 </IconButton>
               </Tooltip>
               <Menu

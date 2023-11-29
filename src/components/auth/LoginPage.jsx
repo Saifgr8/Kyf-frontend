@@ -101,9 +101,9 @@ const LoginPage = () => {
     if (name === "usernameOrEmail") {
       if (!value) {
         errors.usernameOrEmail = "Username or Email is required";
-      } else if (value.length < 5) {
+      } else if (value.length < 2) {
         errors.usernameOrEmail =
-          "Username or Email must be at least 5 characters";
+          "Username or Email must be at least 2 characters";
       } else if (value.length > 20) {
         errors.usernameOrEmail =
           "Username or Email must be less than 20 characters";

@@ -66,6 +66,16 @@ export function HomePageContents() {
           height: "1500px",
         }}
       >
+        <div className="TMark">
+          <div className="typed-container">
+            <p className="typed">
+              Welcome to KYF™, a health and fitness website created by Saif. <br/>
+              <p className="typed typed-delayed">
+              Reach out at the contact page.
+            </p>
+            </p>
+          </div>
+        </div>
         <Lottie animationData={FooterGIF} style={{ marginTop: "-150px" }} />
         <div className="AnimationDiv">
           <ScrollContainer>
