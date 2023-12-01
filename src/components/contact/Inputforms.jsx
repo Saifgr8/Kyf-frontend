@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Rating from "@mui/material/Rating";
+import Textarea from "@mui/joy/Textarea";
 
 function Inputforms() {
   const currentUser = getCurrentUser();
@@ -26,9 +27,6 @@ function Inputforms() {
     FooterRating: "",
     ExplorePageRating: "",
     RecipePageRating: "",
-    DashboardPageRating: "",
-    FeedbackPageRating: "",
-    SetGoalPageRating: "",
   });
 
   const [dataError, setDataError] = useState({
@@ -38,67 +36,47 @@ function Inputforms() {
     FooterRating: "",
     ExplorePageRating: "",
     RecipePageRating: "",
-    DashboardPageRating: "",
-    FeedbackPageRating: "",
-    SetGoalPageRating: "",
   });
 
   const [step, setStep] = useState(1);
-  const [maxStep] = useState(9);
+  const [maxStep] = useState(6);
 
   const handleDataChange = (key, value) => {
     setData({ ...data, [key]: value });
     setDataError({ ...dataError, [key]: "" });
   };
 
-  console.log(handleDataChange);
-
   const handleNextStep = () => {
     if (step < maxStep) {
       if (step === 1 && !data.SignInPageRating) {
         setDataError({
           ...dataError,
-          SignInPageRating: "Please rate SigninPage first",
+          SignInPageRating: "Please rate User Interface first",
         });
       } else if (step === 2 && !data.HomePageRating) {
         setDataError({
           ...dataError,
-          HomePageRating: "Please rate HomePage first",
+          HomePageRating: "Please rate User Experience first",
         });
       } else if (step === 3 && !data.AboutPageRating) {
         setDataError({
           ...dataError,
-          AboutPageRating: "Please rate AboutPage first",
+          AboutPageRating: "Please rate Explore Food Feature first",
         });
       } else if (step === 4 && !data.FooterRating) {
         setDataError({
           ...dataError,
-          FooterRating: "Please rate Footer first",
+          FooterRating: "Please rate Set Goal first",
         });
       } else if (step === 5 && !data.ExplorePageRating) {
         setDataError({
           ...dataError,
-          ExplorePageRating: "Please rate ExplorePage first",
+          ExplorePageRating: "Please rate Recipe Maker first",
         });
       } else if (step === 6 && !data.RecipePageRating) {
         setDataError({
           ...dataError,
-          RecipePageRating: "Please rate RecipePage first",
-        });
-      } else if (step === 7 && !data.DashboardPageRating) {
-        setDataError({
-          ...dataError,
-          DashboardPageRating: "Please rate DashboardPage first",
-        });
-      } else if (step === 8 && !data.FeedbackPageRating) {
-        setDataError({
-          ...dataError,
-          FeedbackPageRating: "Please rate FeedbackPage first",
-        });
-      } else if (step === 9 && !data.SetGoalPageRating) {
-        setDataError({
-          ...dataError,
-          SetGoalPageRating: "Please rate SetGoalPage first",
+          RecipePageRating: "Please Provide a feedback",
         });
       } else {
         setDataError({
@@ -108,9 +86,6 @@ function Inputforms() {
           FooterRating: "",
           ExplorePageRating: "",
           RecipePageRating: "",
-          DashboardPageRating: "",
-          FeedbackPageRating: "",
-          SetGoalPageRating: "",
         });
         setStep(step + 1);
       }
@@ -137,7 +112,10 @@ function Inputforms() {
               gap: "0.5rem",
             }}
           >
-            <Typography variant="h4"> Please rate our Sign-in page</Typography>
+            <Typography variant="h4">
+              {" "}
+              Please rate our User Interface.
+            </Typography>
             <TextField
               sx={{
                 marginTop: "10px",
@@ -174,7 +152,10 @@ function Inputforms() {
               gap: "0.5rem",
             }}
           >
-            <Typography variant="h4"> Please rate our HomePage </Typography>
+            <Typography variant="h4">
+              {" "}
+              Please rate our User Experience{" "}
+            </Typography>
             <TextField
               sx={{
                 marginTop: "10px",
@@ -211,7 +192,10 @@ function Inputforms() {
               gap: "0.5rem",
             }}
           >
-            <Typography variant="h4"> Please rate our AboutPage </Typography>
+            <Typography variant="h4">
+              {" "}
+              Please rate our Explore Food Feature{" "}
+            </Typography>
             <TextField
               sx={{
                 marginTop: "10px",
@@ -248,7 +232,10 @@ function Inputforms() {
               gap: "0.5rem",
             }}
           >
-            <Typography variant="h4"> Please rate our Footer </Typography>
+            <Typography variant="h4">
+              {" "}
+              Please rate our Set Goal Feature{" "}
+            </Typography>
             <TextField
               sx={{
                 marginTop: "10px",
@@ -285,7 +272,10 @@ function Inputforms() {
               gap: "0.5rem",
             }}
           >
-            <Typography variant="h4"> Please rate our ExplorePage </Typography>
+            <Typography variant="h4">
+              {" "}
+              Please rate our Recipe Maker feature{" "}
+            </Typography>
             <TextField
               sx={{
                 marginTop: "10px",
@@ -322,142 +312,15 @@ function Inputforms() {
               gap: "0.5rem",
             }}
           >
-            <Typography variant="h4"> Please rate our RecipePage </Typography>
-            <TextField
-              sx={{
-                marginTop: "10px",
-                width: "70%",
-              }}
-              type="number"
-              label="1-5"
-              placeholder="1-5"
-              variant="outlined"
-              size="small"
-              value={data.RecipePageRating}
+            <Typography variant="h4"> Please leave your feedback </Typography>
+            <Textarea
+              placeholder="Your message will be delivered to me, please type..."
+              minRows={4}
+              maxRows={4}
+              sx={{ width: "400px", height: "100px" }}
               onChange={(e) => {
-                const inputValue = Math.min(5, Math.max(1, e.target.value));
+                const inputValue = e.target.value;
                 handleDataChange("RecipePageRating", inputValue);
-              }}
-              error={!!dataError.RecipePageRating}
-              helperText={dataError.RecipePageRating}
-              inputProps={{
-                min: 1,
-                max: 5,
-                step: 1,
-              }}
-            />
-          </Box>
-        );
-      case 7:
-        return (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <Typography variant="h4">
-              {" "}
-              Please rate our DashboardPage{" "}
-            </Typography>
-            <TextField
-              sx={{
-                marginTop: "10px",
-                width: "70%",
-              }}
-              type="number"
-              label="1-5"
-              placeholder="1-5"
-              variant="outlined"
-              size="small"
-              value={data.DashboardPageRating}
-              onChange={(e) => {
-                const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("DashboardPageRating", inputValue);
-              }}
-              error={!!dataError.DashboardPageRating}
-              helperText={dataError.DashboardPageRating}
-              inputProps={{
-                min: 1,
-                max: 5,
-                step: 1,
-              }}
-            />
-          </Box>
-        );
-      case 8:
-        return (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <Typography variant="h4">Please rate our FeedbackPage </Typography>
-            <TextField
-              sx={{
-                marginTop: "10px",
-                width: "70%",
-              }}
-              type="number"
-              label="1-5"
-              placeholder="1-5"
-              variant="outlined"
-              size="small"
-              value={data.FeedbackPageRating}
-              onChange={(e) => {
-                const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("FeedbackPageRating", inputValue);
-              }}
-              error={!!dataError.FeedbackPageRating}
-              helperText={dataError.FeedbackPageRating}
-              inputProps={{
-                min: 1,
-                max: 5,
-                step: 1,
-              }}
-            />
-          </Box>
-        );
-      case 9:
-        return (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <Typography variant="h4">Please rate our SetGoalPage </Typography>
-            <TextField
-              sx={{
-                marginTop: "10px",
-                width: "70%",
-              }}
-              type="number"
-              label="1-5"
-              placeholder="1-5"
-              variant="outlined"
-              size="small"
-              value={data.SetGoalPageRating}
-              onChange={(e) => {
-                const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("SetGoalPageRating", inputValue);
-              }}
-              error={!!dataError.SetGoalPageRating}
-              helperText={dataError.SetGoalPageRating}
-              inputProps={{
-                min: 1,
-                max: 5,
-                step: 1,
               }}
             />
           </Box>
@@ -574,21 +437,25 @@ function Inputforms() {
 
       {open && (
         <Card
-          
           sx={{
             width: "500px",
             height: "450px",
-            position: 'absolute',
-            backgroundColor: 'grey',
-            zIndex: '1000'
-        
+            position: "absolute",
+            backgroundColor: "grey",
+            zIndex: "1000",
           }}
           className="cardbox"
         >
-          <Box sx={{display: 'flex', flexDirection: 'column'}} className="boxbox" component="fieldset" mb={3} borderColor="transparent">
+          <Box
+            sx={{ display: "flex", flexDirection: "column" }}
+            className="boxbox"
+            component="fieldset"
+            mb={3}
+            borderColor="transparent"
+          >
             <h1> Ratings</h1>
             <div>
-              <span>Sign In Page: </span>
+              <span>User Interface : </span>
               <Rating
                 name="SignInPageRating"
                 value={parseFloat(data.SignInPageRating)}
@@ -597,7 +464,7 @@ function Inputforms() {
               />
             </div>
             <div>
-              <span>Home Page: </span>
+              <span>User Experience : </span>
               <Rating
                 name="HomePageRating"
                 value={parseFloat(data.HomePageRating)}
@@ -606,7 +473,7 @@ function Inputforms() {
               />
             </div>
             <div>
-              <span>About page: </span>
+              <span>Explore Food Feature : </span>
               <Rating
                 name="AboutPageRating"
                 value={parseFloat(data.AboutPageRating)}
@@ -615,7 +482,7 @@ function Inputforms() {
               />
             </div>
             <div>
-              <span>Footer:  </span>
+              <span>Set Goal Feature: </span>
               <Rating
                 name="AboutPageRating"
                 value={parseFloat(data.FooterRating)}
@@ -624,7 +491,7 @@ function Inputforms() {
               />
             </div>
             <div>
-              <span>Explore page: </span>
+              <span>Recipe Maker: </span>
               <Rating
                 name="AboutPageRating"
                 value={parseFloat(data.ExplorePageRating)}
@@ -633,47 +500,27 @@ function Inputforms() {
               />
             </div>
             <div>
-              <span>Recipe page: </span>
-              <Rating
-                name="AboutPageRating"
-                value={parseFloat(data.RecipePageRating)}
-                precision={0.5}
-                readOnly
+              <span>Feedback : </span>
+              <Textarea
+                placeholder={data.RecipePageRating}
+                sx={{ height: "150px", overflowY: "scroll" }}
+                minRows={4}
+                maxRows={4}
               />
             </div>
-            <div>
-              <span>Dashboard page: </span>
-              <Rating
-                name="AboutPageRating"
-                value={parseFloat(data.DashboardPageRating)}
-                precision={0.5}
-                readOnly
-              />
-            </div>
-            <div>
-              <span>Feedback page: </span>
-              <Rating
-                name="AboutPageRating"
-                value={parseFloat(data.FeedbackPageRating)}
-                precision={0.5}
-                readOnly
-              />
-            </div>
-            <div>
-              <span >SetGoal page: </span>
-              <Rating
-                name="AboutPageRating"
-                value={parseFloat(data.SetGoalPageRating)}
-                precision={0.5}
-                readOnly
-              />
-            </div>
-            <Button sx={{mt: '5px'}} variant='contained' onClick={() => window.alert("Response Submitted, Thank you.")}>Submit</Button>
-            {/* Add similar blocks for other pages */}
+            <Button
+              sx={{ mt: "5px" }}
+              variant="contained"
+              onClick={() => {
+                window.alert("Response submitted, Sit tight for updates :)");
+                navigate("/app");
+              }}
+            >
+              Submit
+            </Button>
           </Box>
         </Card>
       )}
-      
     </Box>
   );
 }
