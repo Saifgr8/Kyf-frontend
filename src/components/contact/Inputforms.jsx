@@ -21,21 +21,24 @@ function Inputforms() {
   const [open, setOpen] = useState(false);
 
   const [data, setData] = useState({
-    SignInPageRating: "",
-    HomePageRating: "",
-    AboutPageRating: "",
-    FooterRating: "",
+    UIRating: "",
+    UXRating: "",
     ExplorePageRating: "",
-    RecipePageRating: "",
+    SetGoalRating: "",
+    RecipeMakerRating : "",
+    Feedback : ""
   });
 
+  console.log(data);
+
   const [dataError, setDataError] = useState({
-    SignInPageRating: "",
-    HomePageRating: "",
-    AboutPageRating: "",
-    FooterRating: "",
+    UIRating: "",
+    UXRating: "",
     ExplorePageRating: "",
-    RecipePageRating: "",
+    SetGoalRating: "",
+    RecipeMakerRating : "",
+    Feedback : ""
+
   });
 
   const [step, setStep] = useState(1);
@@ -48,44 +51,44 @@ function Inputforms() {
 
   const handleNextStep = () => {
     if (step < maxStep) {
-      if (step === 1 && !data.SignInPageRating) {
+      if (step === 1 && !data.UIRating) {
         setDataError({
           ...dataError,
-          SignInPageRating: "Please rate User Interface first",
+          UIRating: "Please rate User Interface first",
         });
-      } else if (step === 2 && !data.HomePageRating) {
+      } else if (step === 2 && !data.UXRating) {
         setDataError({
           ...dataError,
-          HomePageRating: "Please rate User Experience first",
+          UXRating: "Please rate User Experience first",
         });
-      } else if (step === 3 && !data.AboutPageRating) {
+      } else if (step === 3 && !data.ExplorePageRating) {
         setDataError({
           ...dataError,
-          AboutPageRating: "Please rate Explore Food Feature first",
+          ExplorePageRating: "Please rate Explore Food Feature first",
         });
-      } else if (step === 4 && !data.FooterRating) {
+      } else if (step === 4 && !data.SetGoalRating) {
         setDataError({
           ...dataError,
-          FooterRating: "Please rate Set Goal first",
+          SetGoalRating: "Please rate Set Goal first",
         });
-      } else if (step === 5 && !data.ExplorePageRating) {
+      } else if (step === 5 && !data.RecipeMakerRating) {
         setDataError({
           ...dataError,
-          ExplorePageRating: "Please rate Recipe Maker first",
+          RecipeMakerRating: "Please rate Recipe Maker first",
         });
-      } else if (step === 6 && !data.RecipePageRating) {
+      } else if (step === 6 && !data.Feedback) {
         setDataError({
           ...dataError,
-          RecipePageRating: "Please Provide a feedback",
+          Feedback: "Please Provide a feedback",
         });
       } else {
         setDataError({
-          SignInPageRating: "",
-          HomePageRating: "",
-          AboutPageRating: "",
-          FooterRating: "",
+          UIRating: "",
+          UXRating: "",
           ExplorePageRating: "",
-          RecipePageRating: "",
+          SetGoalRating: "",
+          RecipeMakerRating: "",
+          Feedback: "",
         });
         setStep(step + 1);
       }
@@ -126,13 +129,13 @@ function Inputforms() {
               placeholder="1-5"
               variant="outlined"
               size="small"
-              value={data.SignInPageRating}
+              value={data.UIRating}
               onChange={(e) => {
                 const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("SignInPageRating", inputValue);
+                handleDataChange("UIRating", inputValue);
               }}
-              error={!!dataError.SignInPageRating}
-              helperText={dataError.SignInPageRating}
+              error={!!dataError.UIRating}
+              helperText={dataError.UIRating}
               inputProps={{
                 min: 1,
                 max: 5,
@@ -166,13 +169,13 @@ function Inputforms() {
               placeholder="1-5"
               variant="outlined"
               size="small"
-              value={data.HomePageRating}
+              value={data.UXRating}
               onChange={(e) => {
                 const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("HomePageRating", inputValue);
+                handleDataChange("UXRating", inputValue);
               }}
-              error={!!dataError.HomePageRating}
-              helperText={dataError.HomePageRating}
+              error={!!dataError.UXRating}
+              helperText={dataError.UXRating}
               inputProps={{
                 min: 1,
                 max: 5,
@@ -206,13 +209,13 @@ function Inputforms() {
               placeholder="1-5"
               variant="outlined"
               size="small"
-              value={data.AboutPageRating}
+              value={data.ExplorePageRating}
               onChange={(e) => {
                 const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("AboutPageRating", inputValue);
+                handleDataChange("ExplorePageRating", inputValue);
               }}
-              error={!!dataError.AboutPageRating}
-              helperText={dataError.AboutPageRating}
+              error={!!dataError.ExplorePageRating}
+              helperText={dataError.ExplorePageRating}
               inputProps={{
                 min: 1,
                 max: 5,
@@ -246,13 +249,13 @@ function Inputforms() {
               placeholder="1-5"
               variant="outlined"
               size="small"
-              value={data.FooterRating}
+              value={data.SetGoalRating}
               onChange={(e) => {
                 const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("FooterRating", inputValue);
+                handleDataChange("SetGoalRating", inputValue);
               }}
-              error={!!dataError.FooterRating}
-              helperText={dataError.FooterRating}
+              error={!!dataError.SetGoalRating}
+              helperText={dataError.SetGoalRating}
               inputProps={{
                 min: 1,
                 max: 5,
@@ -286,13 +289,13 @@ function Inputforms() {
               placeholder="1-5"
               variant="outlined"
               size="small"
-              value={data.ExplorePageRating}
+              value={data.RecipeMakerRating}
               onChange={(e) => {
                 const inputValue = Math.min(5, Math.max(1, e.target.value));
-                handleDataChange("ExplorePageRating", inputValue);
+                handleDataChange("RecipeMakerRating", inputValue);
               }}
-              error={!!dataError.ExplorePageRating}
-              helperText={dataError.ExplorePageRating}
+              error={!!dataError.RecipeMakerRating}
+              helperText={dataError.RecipeMakerRating}
               inputProps={{
                 min: 1,
                 max: 5,
@@ -320,7 +323,7 @@ function Inputforms() {
               sx={{ width: "400px", height: "100px" }}
               onChange={(e) => {
                 const inputValue = e.target.value;
-                handleDataChange("RecipePageRating", inputValue);
+                handleDataChange("Feedback", inputValue);
               }}
             />
           </Box>
@@ -458,7 +461,7 @@ function Inputforms() {
               <span>User Interface : </span>
               <Rating
                 name="SignInPageRating"
-                value={parseFloat(data.SignInPageRating)}
+                value={parseFloat(data.UIRating)}
                 precision={0.5}
                 readOnly
               />
@@ -467,7 +470,7 @@ function Inputforms() {
               <span>User Experience : </span>
               <Rating
                 name="HomePageRating"
-                value={parseFloat(data.HomePageRating)}
+                value={parseFloat(data.UXRating)}
                 precision={0.5}
                 readOnly
               />
@@ -476,7 +479,7 @@ function Inputforms() {
               <span>Explore Food Feature : </span>
               <Rating
                 name="AboutPageRating"
-                value={parseFloat(data.AboutPageRating)}
+                value={parseFloat(data.ExplorePageRating)}
                 precision={0.5}
                 readOnly
               />
@@ -485,7 +488,7 @@ function Inputforms() {
               <span>Set Goal Feature: </span>
               <Rating
                 name="AboutPageRating"
-                value={parseFloat(data.FooterRating)}
+                value={parseFloat(data.SetGoalRating)}
                 precision={0.5}
                 readOnly
               />
@@ -494,7 +497,7 @@ function Inputforms() {
               <span>Recipe Maker: </span>
               <Rating
                 name="AboutPageRating"
-                value={parseFloat(data.ExplorePageRating)}
+                value={parseFloat(data.RecipeMakerRating)}
                 precision={0.5}
                 readOnly
               />
@@ -502,7 +505,7 @@ function Inputforms() {
             <div>
               <span>Feedback : </span>
               <Textarea
-                placeholder={data.RecipePageRating}
+                placeholder={data.Feedback}
                 sx={{ height: "150px", overflowY: "scroll" }}
                 minRows={4}
                 maxRows={4}
