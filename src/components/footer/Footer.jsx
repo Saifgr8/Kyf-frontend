@@ -109,7 +109,7 @@ const Footer = () => {
       <div className="Pdiv">
         <div>
           <p className="FooterP" style={{color: 'black'}}>
-            © 2010-2023 KYF Apps LLC. All Rights Reserved.
+            © 2023 KYF App LLC. All Rights Reserved.
           </p>
           <br />
         </div>

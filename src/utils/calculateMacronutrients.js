@@ -31,9 +31,9 @@ function calculateMacronutrients(
 
   // Define macronutrient percentages based on diet type
   const dietTypeToMacronutrients = {
-    maintain: {  protein: 25, fat: 25, carbohydrate: 50, sugars: 5 },
-    cut: { protein: 32, fat: 30, carbohydrate: 40, sugars: 3 },
-    bulk: { protein: 20, fat: 25, carbohydrate: 55, sugars: 6 },
+    maintain: {  protein: 22.5, fat: 27.5, carbohydrate: 55, sugars: 5 },
+    cut: { protein: 30, fat: 25, carbohydrate: 45, sugars: 3 },
+    bulk: { protein: 30, fat: 27.5, carbohydrate: 55, sugars: 4 },
   };
 
   if (!dietTypeToMacronutrients[dietType]) {
@@ -72,7 +72,7 @@ function calculateMacronutrients(
   ).toFixed(2);
   macroNutrientObject.fiber = (
     (caloriesAcctoDietType() * 0.14) /
-    4
+    8
   ).toFixed(2);
   
   return macroNutrientObject;

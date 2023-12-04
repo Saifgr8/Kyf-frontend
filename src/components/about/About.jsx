@@ -31,7 +31,7 @@ function About() {
                 <br />
                 <br />
                 <Typography variant="h5">
-                  KYF isn't just an app; it's a manifestation of our unwavering
+                  KYF isn't just an app, it's a manifestation of our unwavering
                   commitment to helping you lead a healthier, happier life. Our
                   journey began with a simple realization: the choices you make
                   about the food you eat have a profound impact on your
