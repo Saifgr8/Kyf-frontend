@@ -30,7 +30,7 @@ function About() {
                 <br />
                 <br />
                 <br />
-                <Typography variant="h5">
+                <Typography variant="h5" sx={{textAlign: 'justify'}}>
                   KYF isn't just an app, it's a manifestation of our unwavering
                   commitment to helping you lead a healthier, happier life. Our
                   journey began with a simple realization: the choices you make
@@ -65,7 +65,7 @@ function About() {
                 <Typography sx={{marginTop: '30px'}} variant="h3">Our Mission:</Typography>
                 <br />
                 <br />
-                <Typography variant="h5">
+                <Typography variant="h5" sx={{textAlign: 'justify'}}>
                   Our focus is providing real support to users living
                   carb-conscious lifestyles focused on healthy, delicious, whole
                   foods. We supply you with chef-created recipes, meal plans,
@@ -91,7 +91,7 @@ function About() {
                 <Typography sx={{marginTop: '30px'}} variant="h3">Our Services:</Typography>
                 <br />
                 <br />
-                <Typography variant="h5">
+                <Typography variant="h5" sx={{textAlign: 'justify'}}>
                   We're passionate about promoting sustainable nutrition and
                   fitness while keeping it exciting and delicious.Since our
                   start in 2010, we have expanded to be one of the top macro

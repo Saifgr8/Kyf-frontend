@@ -16,6 +16,8 @@ import Textarea from "@mui/joy/Textarea";
 
 function Inputforms() {
   const currentUser = getCurrentUser();
+  const userLoggedIn = getCurrentUser()?.isLoggedIn;
+
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -25,8 +27,8 @@ function Inputforms() {
     UXRating: "",
     ExplorePageRating: "",
     SetGoalRating: "",
-    RecipeMakerRating : "",
-    Feedback : ""
+    RecipeMakerRating: "",
+    Feedback: "",
   });
 
   console.log(data);
@@ -36,9 +38,8 @@ function Inputforms() {
     UXRating: "",
     ExplorePageRating: "",
     SetGoalRating: "",
-    RecipeMakerRating : "",
-    Feedback : ""
-
+    RecipeMakerRating: "",
+    Feedback: "",
   });
 
   const [step, setStep] = useState(1);
@@ -363,8 +364,24 @@ function Inputforms() {
         >
           <ArrowBackIcon onClick={handlePreviousStep} />
         </Box>
-        <Typography>ID: {currentUser.id}</Typography>
-        <Typography>Name: {currentUser.username}</Typography>
+        <Typography sx={{ textAlign: "center" }}>
+          ID: {currentUser?.id}
+        </Typography>
+        <Typography sx={{ textAlign: "center" }}>
+          Name: {currentUser?.username}
+        </Typography>
+        <Typography sx={{ textAlign: "center" }}>
+          {currentUser?.id ? (
+            ""
+          ) : (
+            <p style={{ textAlign: "center" }}>
+              Please Login first{" "}
+              <Button variant="contained" href="/login">
+                Login
+              </Button>
+            </p>
+          )}
+        </Typography>
         <Box
           sx={{
             display: "flex",
