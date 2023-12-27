@@ -23,6 +23,7 @@ function SearchFoodComponent({ onSelectFoodItem, exploreButtonOff }) {
   const [type, setType] = useState("Non-Veg");
   const [filteredData, setFilteredData] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [spinner, setSpinner] = useState(true);
   const [selectedFood, setSelectedFood] = useState({
     name: "",
     amount: 100,
@@ -43,30 +44,32 @@ function SearchFoodComponent({ onSelectFoodItem, exploreButtonOff }) {
     protein: 0,
     carbs: 0,
     fiber: 0,
-    });
+  });
 
-    useEffect(() => {
+  useEffect(() => {
     const newMacros = {
-        calories: isNotNaN((grams * selectedFood.calories) / 100),
-        sugars: isNotNaN((grams * selectedFood.sugars) / 100),
-        fat: isNotNaN((grams * selectedFood.fat) / 100),
-        protein: isNotNaN((grams * selectedFood.protein) / 100),
-        carbs: isNotNaN((grams * selectedFood.carbs) / 100),
-        fiber: isNotNaN((grams * selectedFood.fiber) / 100),
+      calories: isNotNaN((grams * selectedFood.calories) / 100),
+      sugars: isNotNaN((grams * selectedFood.sugars) / 100),
+      fat: isNotNaN((grams * selectedFood.fat) / 100),
+      protein: isNotNaN((grams * selectedFood.protein) / 100),
+      carbs: isNotNaN((grams * selectedFood.carbs) / 100),
+      fiber: isNotNaN((grams * selectedFood.fiber) / 100),
     };
     setMacros(newMacros);
-    }, [grams, selectedFood]);
+  }, [grams, selectedFood]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://kyf-backend.azurewebsites.net/api/food");
+        const response = await axios.get(
+          "https://kyf-backend.azurewebsites.net/api/food"
+        );
         setData(response.data);
+        setSpinner(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -84,215 +87,220 @@ function SearchFoodComponent({ onSelectFoodItem, exploreButtonOff }) {
 
   const isNotNaN = (value) => {
     if (isNaN(value)) {
-        return 0;
+      return 0;
     }
     return Math.round(value);
-};
+  };
 
-  const handleFoodCardClick = (food) => {    
+  const handleFoodCardClick = (food) => {
     setSelectedFood(food);
     setDrawerOpen(true);
   };
 
   const addFoodItemClick = (food) => {
-
     const newFood = {
-        name: food.name,
-        amount: grams,
-        macros: macros,
-        type: food.type,
+      name: food.name,
+      amount: grams,
+      macros: macros,
+      type: food.type,
     };
 
     onSelectFoodItem(newFood);
     setTimeout(() => {}, 1000);
     setDrawerOpen(false);
   };
-  
 
   const CustomBottomDrawer = (selectedFood) => {
     return (
-      <Collapse
-        in={drawerOpen}
-        timeout={600}
-        sx={{
-          position: "absolute",
-          bottom: drawerOpen ? 0 : "-100%",
-          width: "100%",
-          zIndex: 1000,
-          height: "500px",
-          padding: "2rem",
-          transition: "bottom 0.6s ease-in-out",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          boxShadow: "0 0 20px rgba(0,0,0,0.2)",
-        }}
-      >
-        <Box
+      <>
+        <Collapse
+          in={drawerOpen}
+          timeout={600}
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            borderBottom: "1px solid #ccc",
-            paddingBottom: "1rem",
-            marginBottom: "1rem",
+            position: "absolute",
+            bottom: drawerOpen ? 0 : "-100%",
             width: "100%",
-          }}
-        >
-          <Typography variant="h6">
-            Add {selectedFood?.name} to your recipe.
-          </Typography>
-          <KeyboardArrowDown
-            onClick={() => setDrawerOpen(false)}
-            sx={{ cursor: "pointer" }}
-          />
-        </Box>
-        <Box
-          sx={{
+            zIndex: 1000,
+            height: "500px",
+            padding: "2rem",
+            transition: "bottom 0.6s ease-in-out",
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#fff",
+            boxShadow: "0 0 20px rgba(0,0,0,0.2)",
           }}
         >
           <Box
             sx={{
-              width: "40%",
               display: "flex",
-              flexDirection: "column",
               justifyContent: "space-between",
+              borderBottom: "1px solid #ccc",
+              paddingBottom: "1rem",
+              marginBottom: "1rem",
+              width: "100%",
             }}
           >
-            <Typography variant="h5" sx={{ marginLeft: "1rem" }}>
-              {selectedFood?.name}
+            <Typography variant="h6">
+              Add {selectedFood?.name} to your recipe.
             </Typography>
-            <Image
-              imageName={selectedFood?.name || "test"}
-              width="260px"
-              height="300px"
+            <KeyboardArrowDown
+              onClick={() => setDrawerOpen(false)}
+              sx={{ cursor: "pointer" }}
             />
           </Box>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              alignItems: "center",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              width: "100%",
             }}
           >
-            <Typography
-              variant="h5"
+            <Box
               sx={{
-                marginLeft: "1rem",
-                marginBottom: "-4rem",
+                width: "40%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
             >
-              Quantity
-            </Typography>
-            <Lottie animationData={RMgif} />
-            <TextField
-              id="standard-basic"
-              label="Grams"
-              variant="standard"
-              type="number"
-              onChange={(e) => setGrams(Number(e.target.value))}
-              width="180px"
-              sx={{ marginTop: "-2rem" }}
-              value={grams}
-            />
-
-            {/* do here */}
-
-            {!exploreButtonOff && <Button
-              variant="contained"
-              size="large"
-              onClick={() => addFoodItemClick(selectedFood)}
-              width="182px"
-              sx={{ marginTop: "1.2rem" }}
-            >
-              Add
-            </Button>}
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "40%",
-              height: "100%",
-            }}
-          >
-            <Typography variant="h5">Micro Nutritions</Typography>
+              <Typography variant="h5" sx={{ marginLeft: "1rem" }}>
+                {selectedFood?.name}
+              </Typography>
+              <Image
+                imageName={selectedFood?.name || "test"}
+                width="260px"
+                height="300px"
+              />
+            </Box>
             <Box
               sx={{
                 display: "flex",
-                width: "100%",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{
+                  marginLeft: "1rem",
+                  marginBottom: "-4rem",
+                }}
+              >
+                Quantity
+              </Typography>
+              <Lottie animationData={RMgif} />
+              <TextField
+                id="standard-basic"
+                label="Grams"
+                variant="standard"
+                type="number"
+                onChange={(e) => setGrams(Number(e.target.value))}
+                width="180px"
+                sx={{ marginTop: "-2rem" }}
+                value={grams}
+              />
+
+              {/* do here */}
+
+              {!exploreButtonOff && (
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => addFoodItemClick(selectedFood)}
+                  width="182px"
+                  sx={{ marginTop: "1.2rem" }}
+                >
+                  Add
+                </Button>
+              )}
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: "2rem",
+                width: "40%",
+                height: "100%",
               }}
             >
-              {Object.keys(macros).map((key, index) => (
-                <Box key={index} sx={{ margin: "10px" }}>
-                  <Chip
-                    label={`${key}: ${macros[key]}`}
-                    style={{ ...macroStyles[key] }}
-                    sx={{ fontSize: "20px", width: "150px" }}
-                  />
-                </Box>
-              ))}
+              <Typography variant="h5">Micro Nutritions</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                {Object.keys(macros).map((key, index) => (
+                  <Box key={index} sx={{ margin: "10px" }}>
+                    <Chip
+                      label={`${key}: ${macros[key]}`}
+                      style={{ ...macroStyles[key] }}
+                      sx={{ fontSize: "20px", width: "150px" }}
+                    />
+                  </Box>
+                ))}
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </Collapse>
+        </Collapse>
+      </>
     );
   };
   return (
-    <Box
-      sx={{
-        position: "relative",
-        height: "100%",
-      }}
-    >
+    <>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "1rem",
+          position: "relative",
+          height: "100%",
         }}
       >
-        <FoodTypeSelection type={type} setType={setType} />
-        <Stack spacing={2} sx={{ width: 400 }}>
-          <Autocomplete
-            freeSolo
-            id="free-solo-2-demo"
-            disableClearable
-            options={data.map((option) => option.name)}
-            onChange={(event, newValue) => {
-              onSelectOption(newValue);
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Search food item"
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
-              />
-            )}
-          />
-        </Stack>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "1rem",
+          }}
+        >
+          <FoodTypeSelection type={type} setType={setType} />
+          <Stack spacing={2} sx={{ width: 400 }}>
+            <Autocomplete
+              freeSolo
+              id="free-solo-2-demo"
+              disableClearable
+              options={data.map((option) => option.name)}
+              onChange={(event, newValue) => {
+                onSelectOption(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Search food item"
+                  InputProps={{
+                    ...params.InputProps,
+                    type: "search",
+                  }}
+                />
+              )}
+            />
+          </Stack>
+        </Box>
+        <FoodCards
+          foodItems={filteredData}
+          onFoodItemClick={handleFoodCardClick}
+          spinner={spinner}
+        />
+        {selectedFood && CustomBottomDrawer(selectedFood)}
       </Box>
-      <FoodCards
-        foodItems={filteredData}
-        onFoodItemClick={handleFoodCardClick}
-      />
-      {selectedFood && CustomBottomDrawer(selectedFood)}
-    </Box>
+    </>
   );
 }
 

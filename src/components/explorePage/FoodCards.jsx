@@ -1,13 +1,20 @@
 import { Box, Pagination } from "@mui/material";
 import React, { useState } from "react";
 import MediaCard from "./MediaCard";
+import LoadingSpinner from "./LoadingSpinner";
 
-function FoodCards({ foodItems, setClickedFoodItem, setModalOpen, onFoodItemClick }) {
+function FoodCards({
+  foodItems,
+  setClickedFoodItem,
+  setModalOpen,
+  onFoodItemClick,
+  spinner
+}) {
   const itemsPerPage = 6; // Number of items to show per page
   const [page, setPage] = useState(1);
 
   const handleCardClick = (item) => {
-   onFoodItemClick(item);
+    onFoodItemClick(item);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -19,44 +26,50 @@ function FoodCards({ foodItems, setClickedFoodItem, setModalOpen, onFoodItemClic
   const displayedItems = foodItems.slice(startIndex, endIndex);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-        height: "580px",
-        width: "100%",
-        marginLeft: "1.5rem",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: 'space-evenly',
-          flexWrap: "wrap",
-          boxShadow: 0,
-          gap: "30px",
-          paddingRight: '24px'
-        }}
-      >
-        {displayedItems.map((d) => (
-          <MediaCard
-            key={d.name}
-            foodItem={d}
-            setSelectedItem={handleCardClick}
+    <>
+      {spinner ? (
+        <LoadingSpinner />
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "580px",
+            width: "100%",
+            marginLeft: "1.5rem",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              flexWrap: "wrap",
+              boxShadow: 0,
+              gap: "30px",
+              paddingRight: "24px",
+            }}
+          >
+            {displayedItems.map((d) => (
+              <MediaCard
+                key={d.name}
+                foodItem={d}
+                setSelectedItem={handleCardClick}
+              />
+            ))}
+          </Box>
+          <Pagination
+            count={Math.ceil(foodItems.length / itemsPerPage)}
+            page={page}
+            onChange={handleChangePage}
+            sx={{ marginTop: "auto", marginBottom: "5px" }}
+            shape="rounded"
+            color="primary"
           />
-        ))}
-      </Box>
-      <Pagination
-        count={Math.ceil(foodItems.length / itemsPerPage)}
-        page={page}
-        onChange={handleChangePage}
-        sx={{ marginTop: "auto", marginBottom: "5px" }}
-        shape="rounded"
-        color="primary"
-      />
-    </Box>
+        </Box>
+      )}
+    </>
   );
 }
 

@@ -29,10 +29,14 @@ function ExploreFoodItems() {
           <SearchFoodComponent exploreButtonOff={exploreButtonOff} />
         </Box>
       </Box>
-      <div>
-        <img src={imageExp} />
+      <div
+        style={{
+          paddingTop: "500px",
+          background: "linear-gradient(to bottom, lightyellow, white )",
+        }}
+      >
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
